@@ -3,35 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="index.css">
-    <title>Document</title>
+    <title>Credits</title>
+
+    <link rel="stylesheet" href="css/index.css">
 </head>
 
 <body>
-    <div class="wrapper">
-        <div class="scroll-text">
-            <!--<iframe class="media" src="http://localhost:8001/referat.html"> -->
-            <h1>STAR WARS</h1>
-            <h2>Scrolling Text Effect</h2>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad maiores aut cupiditate unde ipsam ut fugit
-                deleniti non autem, ab, tempore ratione quo, nihil delectus sequi incidunt voluptates quis. Expedita!
-            </p>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad maiores aut cupiditate unde ipsam ut fugit
-                deleniti non autem, ab, tempore ratione quo, nihil delectus sequi incidunt voluptates quis. Expedita!
-            </p>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad maiores aut cupiditate unde ipsam ut fugit
-                deleniti non autem, ab, tempore ratione quo, nihil delectus sequi incidunt voluptates quis. Expedita!
-            </p>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad maiores aut cupiditate unde ipsam ut fugit
-                deleniti non autem, ab, tempore ratione quo, nihil delectus sequi incidunt voluptates quis. Expedita!
-            </p>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad maiores aut cupiditate unde ipsam ut fugit
-                deleniti non autem, ab, tempore ratione quo, nihil delectus sequi incidunt voluptates quis. Expedita!
-            </p>
+    <div class="animation-player">
+        <div class="form">
+            <h1>Logo</h1>
 
-            <!-- </iframe> -->s
+            <form class="animation-config">
+
+                <input type="text" placeholder="Animation source" class="field">
+                <select class="field">
+                    <option value="1"> Star wars </option>
+                    <option value="2"> Final credits </option>
+                </select>
+                <label for="vol">Speed </label>
+                <input type="range" name="Speed" min="10" max="100">
+
+                <div>
+                    <label for="favcolor">Backgroun color </label>
+                    <input type="color" name="Background color" value="#ff0000">
+                </div>
+
+                <input type="text" placeholder="Playback music" class="field">
+            </form>
+
+
+            <fieldset class="btn-group">
+                <button class="field"> Animate </button>
+                <button class="field"> Reset </button>
+            </fieldset>
+        </div>
+
+
+        <div class="animation">
+            <div class="animation-holder">
+                <iframe class="media" id="mediaFile" src="http://localhost:8001/referat.html">
+                </iframe>
+            </div>
+
+            <div class="media-controls">
+                <button class="field"> Pause </button>
+                <button class="field"> Mute </button>
+            </div>
         </div>
     </div>
+
+    <script src="js/index.js"></script>
 </body>
 
 </html>
