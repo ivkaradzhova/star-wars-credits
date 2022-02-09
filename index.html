@@ -10,43 +10,49 @@
 
 <body>
     <div class="animation-player">
-        <div class="form">
+        <div class="form" id="animationForm">
             <h1>Logo</h1>
 
-            <form class="animation-config">
+            <form id="animationConfig" class="animation-config">
 
-                <input type="text" placeholder="Animation source" class="field">
-                <select class="field">
-                    <option value="1"> Star wars </option>
-                    <option value="2"> Final credits </option>
+                <select class="field" name="type">
+                    <option value="webPage"> Web Page </option>
+                    <option value="text"> Text </option>
+                </select>
+                <input type="text" placeholder="Animation source" class="field" name="source">
+                <input type="number" placeholder="Web Page Height" class="field" name="height">
+                <input type="text" placeholder="Animation text" class="field" name="text">
+                <select class="field" name="style">
+                    <option value="starWars"> Star wars </option>
+                    <option value="finalCredits"> Final credits </option>
                 </select>
                 <label for="vol">Speed </label>
-                <input type="range" name="Speed" min="10" max="100">
+                <input type="range" name="speed" min="0" max="10">
 
                 <div>
-                    <label for="favcolor">Backgroun color </label>
-                    <input type="color" name="Background color" value="#ff0000">
+                    <label for="favcolor">Background color</label>
+                    <input type="color" name="backgroundColor" value="#ff0000">
                 </div>
 
-                <input type="text" placeholder="Playback music" class="field">
+                <input type="text" placeholder="Playback music" class="field" name="musicSource">
             </form>
 
 
             <fieldset class="btn-group">
-                <button class="field"> Animate </button>
-                <button class="field"> Reset </button>
+                <button class="field" id="animateBtn"> Animate </button>
+                <button class="field" id="resetBtn"> Reset </button>
             </fieldset>
         </div>
 
 
         <div class="animation">
-            <div class="animation-holder">
-                <iframe class="media" id="mediaFile" src="http://localhost:8001/referat.html">
-                </iframe>
+            <div class="animation-container" id="animationContainer">
+                <!-- <iframe class="media" id="mediaFile" src="http://localhost:8081/referat.html"></iframe>
+                </iframe> -->
             </div>
 
             <div class="media-controls">
-                <button class="field"> Pause </button>
+                <button class="field" id="playPauseBtn"> Pause </button>
                 <button class="field"> Mute </button>
             </div>
         </div>

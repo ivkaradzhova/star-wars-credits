@@ -71,8 +71,8 @@ body {
 }
 
 
-.animation-holder {
-  width: 80%;
+.animation-container {
+  /* width: 80%;
   height: 7500px;
   color: #ffc909;
   font-size: 3vw;
@@ -80,7 +80,11 @@ body {
   font-weight: bold;
   text-align: justify;
   position: relative;
-  animation: scroll 10s linear forwards;
+  animation: scroll 12s linear forwards; */
+  /* animation-play-state: paused; */
+  width: 100%;
+  overflow: hidden;
+  height: 100%;
 }
 
 
@@ -93,6 +97,6 @@ body {
 
 
 @keyframes scroll {
-	from { top: 0; transform: translateZ(0) rotateX(20deg); }
-	to { top: -7500px; transform: translateZ(-2500px) rotateX(21deg); }
+	from { transform: translateY(0) translateZ(0) rotateX(20deg); }
+	to { transform: translateY(-5000px) translateZ(-2000px) rotateX(21deg); }
 } 
