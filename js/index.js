@@ -74,8 +74,6 @@ class AnimationController {
     }
 
     togglePlayback() {
-        console.log(this);
-        console.log(this._player);
         this._player.isPlaying ? this._player.pause() : this._player.play();
     }
 
@@ -208,7 +206,7 @@ function readAnimationConfigInputs() {
 const DEFAULT_ANIMATION_CONFIG = {
     type: "webPage",
     source: "http://example.com",
-    backgroundColor: "papayawhip",
+    backgroundColor: "var(--secondary-color)",
     speed: 1,
     style: "starWars",
     musicSource: "unknown",
@@ -219,7 +217,10 @@ const animationContainer = document.getElementById("animationContainer");
 const animationController = new AnimationController(animationContainer, DEFAULT_ANIMATION_CONFIG);
 
 const playPauseBtn = document.getElementById("playPauseBtn");
-playPauseBtn.onclick = () => animationController.togglePlayback();
+playPauseBtn.onclick = () => {
+    toggleButton(playPauseBtn);
+    animationController.togglePlayback();
+};
 
 const animateBtn = document.getElementById("animateBtn");
 animateBtn.onclick = () => {
@@ -230,5 +231,13 @@ animateBtn.onclick = () => {
 
 const resetBtn = document.getElementById("resetBtn");
 resetBtn.onclick = () => {
-    console.log("Not implemented");
+    animationController.animationConfig = DEFAULT_ANIMATION_CONFIG;
 }
+
+function toggleButton(element) { 
+    const buttons = Array.from(element.children);
+    buttons.forEach(button => button.classList.toggle('hidden'))
+};
+
+const muteBtn = document.getElementById('muteBtn');
+muteBtn.addEventListener('click', () => toggleButton(muteBtn));

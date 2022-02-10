@@ -39,21 +39,29 @@
 
 
             <fieldset class="btn-group">
-                <button class="field" id="animateBtn"> Animate </button>
-                <button class="field" id="resetBtn"> Reset </button>
+                <button class="btn-config animate" id="animateBtn"> ANIMATE </button>
+                <button class="btn-config reset" id="resetBtn"> RESET </button>
+
             </fieldset>
         </div>
 
 
         <div class="animation">
+
+
             <div class="animation-container" id="animationContainer">
-                <!-- <iframe class="media" id="mediaFile" src="http://localhost:8081/referat.html"></iframe>
-                </iframe> -->
+               
             </div>
 
             <div class="media-controls">
-                <button class="field" id="playPauseBtn"> Pause </button>
-                <button class="field"> Mute </button>
+                <div class="btn-media btn-play-pause" id="playPauseBtn">
+                    <button class="btn-media"> <img src="svg/pause_black_24dp.svg"> </button>
+                    <button class="btn-media hidden"> <img src="svg/play_arrow_black_24dp.svg"> </button>
+                </div>
+                <div class="btn-media btn-mute-unmute" id="muteBtn">
+                    <button class="btn-media"> <img src="svg/volume_up_black_24dp.svg"> </button>
+                    <button class="btn-media hidden"> <img src="svg/volume_off_black_24dp.svg"> </button>
+                </div>
             </div>
         </div>
     </div>
