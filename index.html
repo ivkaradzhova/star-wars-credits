@@ -11,30 +11,39 @@
 <body>
     <div class="animation-player">
         <div class="form" id="animationForm">
-            <h1>Logo</h1>
+            <h1 class="logo">Credits Player</h1>
 
             <form id="animationConfig" class="animation-config">
 
-                <select class="field" name="type">
-                    <option value="webPage"> Web Page </option>
-                    <option value="text"> Text </option>
+                <select name="type" id="animationTypeSelect">
+                    <option value="webPage">Web Page</option>
+                    <option value="text">Text</option>
                 </select>
-                <input type="text" placeholder="Animation source" class="field" name="source">
-                <input type="number" placeholder="Web Page Height" class="field" name="height">
-                <input type="text" placeholder="Animation text" class="field" name="text">
-                <select class="field" name="style">
-                    <option value="starWars"> Star wars </option>
-                    <option value="finalCredits"> Final credits </option>
+                <input type="url" placeholder="Animation source" name="source" class="type-web-page">
+                <input type="number" placeholder="Web Page Height" name="height" class="type-web-page">
+                <input type="text" placeholder="Animation text" name="text" class="type-text">
+                <div class="type-text">
+                    <label for="textColor">Text color</label>
+                    <input type="color" name="textColor" value="#ffeb00">
+                </div>
+                <select name="style">
+                    <option value="starWars">Star wars</option>
+                    <option value="finalCredits">Final credits</option>
                 </select>
-                <label for="vol">Speed </label>
+                <label for="vol">Speed</label>
                 <input type="range" name="speed" min="0" max="10">
 
                 <div>
-                    <label for="favcolor">Background color</label>
+                    <label for="backgroundColor">Background color</label>
                     <input type="color" name="backgroundColor" value="#ff0000">
                 </div>
 
-                <input type="text" placeholder="Playback music" class="field" name="musicSource">
+                <select name="musicType" id="musicTypeSelect">
+                    <option value="url">URL</option>
+                    <option value="file">File</option>
+                </select>
+                <input type="url" placeholder="Music URL" name="musicUrl" class="music-type-url">
+                <input type="file" placeholder="Music file" name="musicPath" class="music-type-file">
             </form>
 
 
@@ -50,17 +59,17 @@
 
 
             <div class="animation-container" id="animationContainer">
-               
+
             </div>
 
             <div class="media-controls">
-                <div class="btn-media btn-play-pause" id="playPauseBtn">
-                    <button class="btn-media"> <img src="svg/pause_black_24dp.svg"> </button>
-                    <button class="btn-media hidden"> <img src="svg/play_arrow_black_24dp.svg"> </button>
+                <div class="btn-media btn-play-pause" id="playBtn">
+                    <button class="btn-media" id="playBtnPause"><img src="svg/pause_black_24dp.svg"></button>
+                    <button class="btn-media" id="playBtnPlay"><img src="svg/play_arrow_black_24dp.svg"></button>
                 </div>
                 <div class="btn-media btn-mute-unmute" id="muteBtn">
-                    <button class="btn-media"> <img src="svg/volume_up_black_24dp.svg"> </button>
-                    <button class="btn-media hidden"> <img src="svg/volume_off_black_24dp.svg"> </button>
+                    <button class="btn-media" id="muteBtnUnmute"><img src="svg/volume_up_black_24dp.svg"></button>
+                    <button class="btn-media" id="muteBtnMute"><img src="svg/volume_off_black_24dp.svg"></button>
                 </div>
             </div>
         </div>

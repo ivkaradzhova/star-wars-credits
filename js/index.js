@@ -8,51 +8,78 @@ class AnimationConfig {
     source;
     height;
     text;
+    textColor;
     style;
     speed;
     backgroundColor;
-    musicSource;
+    musicType;
+    musicUrl;
+    musicPath;
+}
+
+class MediaControls {
+    playBtn;
+    muteBtn;
 }
 
 class AnimationPlayer {
     static PLAY_STATE_PROP = "animation-play-state";
     static PLAY_STATE_PAUSED = "paused";
     static PLAY_STATE_RUNNING = "running";
+    static CLASS_HIDDEN = "hidden";
 
-    isMuted = false;
-
-    constructor(animationContainer) {
-        this.animationContainer = animationContainer;
+    /**
+     * 
+     * @param {HTMLElement} animationContainer 
+     * @param {string} musicSource
+     * @param {MediaControls} mediaControls
+     */
+    constructor(animationContainer, musicSource, mediaControls) {
+        this._animationContainer = animationContainer;
+        this._musicSource = musicSource;
+        this._audio = new Audio(musicSource);
+        this._playBtn = mediaControls.playBtn;
+        this._muteBtn = mediaControls.muteBtn;
     }
 
     play() {
-        this.animationContainer.style[AnimationPlayer.PLAY_STATE_PROP] = AnimationPlayer.PLAY_STATE_RUNNING;
+        this._animationContainer.style[AnimationPlayer.PLAY_STATE_PROP] = AnimationPlayer.PLAY_STATE_RUNNING;
+        this._audio.play();
+        this._playBtn.querySelector("#playBtnPlay").classList.add(AnimationPlayer.CLASS_HIDDEN);
+        this._playBtn.querySelector("#playBtnPause").classList.remove(AnimationPlayer.CLASS_HIDDEN);
     }
 
     pause() {
-        this.animationContainer.style[AnimationPlayer.PLAY_STATE_PROP] = AnimationPlayer.PLAY_STATE_PAUSED;
-    }
-
-    reset() {
-        // TODO
+        this._animationContainer.style[AnimationPlayer.PLAY_STATE_PROP] = AnimationPlayer.PLAY_STATE_PAUSED;
+        this._audio.pause();
+        this._playBtn.querySelector("#playBtnPlay").classList.remove(AnimationPlayer.CLASS_HIDDEN);
+        this._playBtn.querySelector("#playBtnPause").classList.add(AnimationPlayer.CLASS_HIDDEN);
     }
 
     mute() {
-        // TODO
+        this._audio.muted = true;
+        this._muteBtn.querySelector("#muteBtnMute").classList.add(AnimationPlayer.CLASS_HIDDEN);
+        this._muteBtn.querySelector("#muteBtnUnmute").classList.remove(AnimationPlayer.CLASS_HIDDEN);
     }
 
     unmute() {
-        // TODO
+        this._audio.muted = false;
+        this._muteBtn.querySelector("#muteBtnMute").classList.remove(AnimationPlayer.CLASS_HIDDEN);
+        this._muteBtn.querySelector("#muteBtnUnmute").classList.add(AnimationPlayer.CLASS_HIDDEN);
+    }
+
+    stop() {
+        this.pause();
     }
 
     get isPlaying() {
-        const style = window.getComputedStyle(this.animationContainer);
+        const style = window.getComputedStyle(this._animationContainer);
         const currentState = style.getPropertyValue(AnimationPlayer.PLAY_STATE_PROP);
         return currentState === AnimationPlayer.PLAY_STATE_RUNNING;
     }
 
     get isMuted() {
-        return this.isMuted;
+        return this._muteBtn.querySelector("#muteBtnMute").classList.contains(AnimationPlayer.CLASS_HIDDEN);
     }
 }
 
@@ -67,14 +94,20 @@ class AnimationController {
      * @param {AnimationPlayer} player
      * @param {AnimationConfig} animationConfig
      */
-    constructor(animationContainer, animationConfig) {
+    constructor(animationContainer, animationConfig, mediaControls) {
         this._animationContainer = animationContainer;
         this._animationConfig = animationConfig;
-        this._restartAnimation();
+        this._mediaControls = mediaControls;
+        this._loadAnimation();
+        this._configMediaControls(mediaControls);
     }
 
     togglePlayback() {
         this._player.isPlaying ? this._player.pause() : this._player.play();
+    }
+
+    toggleMusic() {
+        this._player.isMuted ? this._player.unmute() : this._player.mute();
     }
 
     /**
@@ -82,42 +115,51 @@ class AnimationController {
      */
     set animationConfig(config) {
         this._animationConfig = config;
-        this._restartAnimation();
+        this._player.stop();
+        this._loadAnimation();
     }
 
-    _restartAnimation() {
+    _loadAnimation() {
         let node = this._animationContainer;
         node = AnimationController._clearElement(node);
-        node = AnimationController._setBackgroundColor(node, this._animationConfig);
-        node = AnimationController._loadContent(node, this._animationConfig);
+        node = AnimationController._setBackground(node, this._animationConfig);
         node = AnimationController._setStyle(node, this._animationConfig);
+        node = AnimationController._loadContent(node, this._animationConfig);
         node = AnimationController._setSpeed(node, this._animationConfig);
-        node = AnimationController._loadPlaybackMusic(node, this._animationConfig);
-        this._player = new AnimationPlayer(node);
+
+        const musicSource = this._getMusicSource(this._animationConfig);
+        this._player = new AnimationPlayer(node, musicSource, this._mediaControls);
+        this._player.pause();
+        this._player.unmute();
+    }
+
+    /**
+     * @param {AnimationConfig} config 
+     */
+    _getMusicSource(config) {
+        if (config.musicType === "url") {
+            return config.musicUrl;
+        }
+        return config.musicPath;
+    }
+
+    _configMediaControls(controls) {
+        controls.playBtn.addEventListener("click", () => this.togglePlayback());
+        controls.muteBtn.addEventListener("click", () => this.toggleMusic());
     }
 
     /**
      * @param {HTMLElement} node
      * @param {AnimationConfig} config
      */
-    static _setBackgroundColor(node, config) {
+    static _setBackground(node, config) {
         const next = document.createElement("div");
+        next.classList.add("animation-background");
         next.style["background-color"] = config.backgroundColor;
-        next.style["height"] = "100%";
-        next.style["width"] = "100%";
-        next.style["display"] = "flex";
-        next.style["justify-content"] = "center";
-        next.style["perspective"] = "450px";
-        next.style["flex-direction"] = "row";
         node.appendChild(next);
         const topGradient = document.createElement("div");
+        topGradient.classList.add("animation-top-gradient");
         topGradient.style["background"] = `linear-gradient(${config.backgroundColor}, transparent)`;
-        topGradient.style["height"] = "30%";
-        topGradient.style["width"] = "100%";
-        topGradient.style["position"] = "absolute";
-        topGradient.style["top"] = "0";
-        topGradient.style["left"] = "0";
-        topGradient.style["z-index"] = "10";
         node.appendChild(topGradient);
         return next;
     }
@@ -147,8 +189,14 @@ class AnimationController {
      * @param {AnimationConfig} config
      */
     static _loadTextContent(node, config) {
-        console.log("not implemented");
-        return node;
+        const div = document.createElement("div");
+        div.style["width"] = "100%";
+        div.style["max-width"] = "1000px";
+        div.style["color"] = config.textColor;
+        div.style["font-size"] = "500%";
+        div.innerText = config.text;
+        node.appendChild(div);
+        return div;
     }
 
     /**
@@ -157,13 +205,10 @@ class AnimationController {
      */
     static _loadWebPageContent(node, config) {
         const iFrame = document.createElement("iframe");
+        iFrame.classList.add("animation-webpage");
         iFrame.setAttribute("src", config.source);
-        iFrame.style["width"] = "100%";
         iFrame.style["height"] = config.height;
-        // iFrame.style["transform"] = "rotateX(45deg)";
-        // iFrame.style["transform-style"] = "preserve-3d";
-        iFrame.style["animation"] = "scroll 12s linear forwards";
-        iFrame.style["border"] = "0";
+        iFrame.style["animation-play-state"] = "paused";
         node.appendChild(iFrame);
         return iFrame;
     }
@@ -173,7 +218,34 @@ class AnimationController {
      * @param {AnimationConfig} config
      */
     static _setStyle(node, config) {
-        return node;
+        const style = config.style;
+        switch (style) {
+            case "starWars": {
+                node.style["perspective"] = "450px";
+                break;
+            }
+            case "finalCredits": {
+                node.style.removeProperty("perspective");
+                break;
+            }
+        }
+
+        const next = document.createElement("div");
+        next.style["width"] = "100%";
+        next.style["max-width"] = "1200px";
+        next.style["height"] = "2000px";
+        switch (style) {
+            case "starWars": {
+                next.style["transform"] = "rotateX(20deg)";
+                break;
+            }
+            case "finalCredits": {
+                next.style["margin"] = "0 20px";
+                next.style["margin-top"] = "20%";
+            }
+        }
+        node.appendChild(next);
+        return next;
     }
 
     /**
@@ -181,63 +253,117 @@ class AnimationController {
      * @param {AnimationConfig} config
      */
     static _setSpeed(node, config) {
-        return node;
-    }
-
-    /**
-     * @param {HTMLElement} node
-     * @param {AnimationConfig} config
-     */
-    static _loadPlaybackMusic(node, config) {
+        const speed = config.speed * 100;
+        const height = config.type === AnimationConfig.ANIMATION_TYPE_TEXT ? node.offsetHeight : config.height;
+        console.log(height, speed);
+        const time = calculateAnimationTime(speed, height);
+        node.style["animation"] = `scroll ${time}s linear forwards`;
         return node;
     }
 }
 
-function readAnimationConfigInputs() {
-    const configForm = document.getElementById("animationConfig");
+function calculateAnimationTime(speed, height) {
+    return height / speed;
+}
+
+function readAnimationConfigInputs(form) {
     const result = new AnimationConfig();
-    Object.keys(result).forEach(key => {
-        result[key] = configForm[key].value;
+    Object.keys(result).forEach((key) => {
+        result[key] = form[key].value;
     });
+    fixAnimationConfig(result);
     return result;
 }
 
-
-const DEFAULT_ANIMATION_CONFIG = {
-    type: "webPage",
-    source: "http://example.com",
-    backgroundColor: "var(--secondary-color)",
-    speed: 1,
-    style: "starWars",
-    musicSource: "unknown",
-    height: "2000px",
-};
-
-const animationContainer = document.getElementById("animationContainer");
-const animationController = new AnimationController(animationContainer, DEFAULT_ANIMATION_CONFIG);
-
-const playPauseBtn = document.getElementById("playPauseBtn");
-playPauseBtn.onclick = () => {
-    toggleButton(playPauseBtn);
-    animationController.togglePlayback();
-};
-
-const animateBtn = document.getElementById("animateBtn");
-animateBtn.onclick = () => {
-    const config = readAnimationConfigInputs();
-    console.log("animation config:", config);
-    animationController.animationConfig = config;
-};
-
-const resetBtn = document.getElementById("resetBtn");
-resetBtn.onclick = () => {
-    animationController.animationConfig = DEFAULT_ANIMATION_CONFIG;
+function fixAnimationConfig(config) {
+    if (config.musicType === "file") {
+        const file = form["musicPath"].files[0];
+        config.musicPath = URL.createObjectURL(file);
+    }
 }
 
-function toggleButton(element) { 
-    const buttons = Array.from(element.children);
-    buttons.forEach(button => button.classList.toggle('hidden'))
-};
+function populateForm(config) {
+    Object.keys(config).forEach((key) => {
+        animationConfigForm[key].value = config[key];
+    });
+}
 
-const muteBtn = document.getElementById('muteBtn');
-muteBtn.addEventListener('click', () => toggleButton(muteBtn));
+function handleAnimationTypeChanged(animationTypeSelect) {
+    const animationType = animationTypeSelect.value;
+    const isWebPageVisible = animationType === "webPage";
+    const isTextVisible = animationType === "text";
+    Array.from(document.getElementsByClassName("type-web-page"))
+        .forEach((e) => setElementVisible(e, isWebPageVisible));
+    Array.from(document.getElementsByClassName("type-text"))
+        .forEach((e) => setElementVisible(e, isTextVisible));
+}
+
+function handleMusicTypeChanged(musicTypeSelect) {
+    const musicType = musicTypeSelect.value;
+    const isUrlVisible = musicType === "url";
+    const isFileVisible = musicType === "file";
+    Array.from(document.getElementsByClassName("music-type-url"))
+        .forEach((e) => setElementVisible(e, isUrlVisible));
+    Array.from(document.getElementsByClassName("music-type-file"))
+        .forEach((e) => setElementVisible(e, isFileVisible));
+}
+
+function setElementVisible(e, isVisible) {
+    e.style["display"] = isVisible ? "block" : "none";
+}
+
+// const DEFAULT_ANIMATION_CONFIG = {
+//     type: "webPage",
+//     source: "http://example.com",
+//     backgroundColor: "#262626",
+//     speed: 10,
+//     style: "starWars",
+//     musicType: "url",
+//     musicUrl: "assets/star_wars.mp3",
+//     height: 2000,
+// };
+
+const DEFAULT_ANIMATION_CONFIG = {
+    type: "text",
+    text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse quas iure aspernatur sit culpa magnam explicabo soluta mollitia perferendis ducimus quae quo, dolor tempore tenetur illo placeat fuga ratione vero! ".repeat(100),
+    textColor: "#ffeb00",
+    backgroundColor: "#262626",
+    speed: 1,
+    style: "starWars",
+    musicType: "url",
+    musicUrl: "assets/star_wars.mp3",
+};
+fixAnimationConfig(DEFAULT_ANIMATION_CONFIG);
+
+const animationContainer = document.getElementById("animationContainer");
+const playBtn = document.getElementById("playBtn");
+const muteBtn = document.getElementById("muteBtn");
+const animationController = new AnimationController(
+    animationContainer,
+    DEFAULT_ANIMATION_CONFIG, {
+        playBtn: playBtn,
+        muteBtn: muteBtn
+    });
+
+const animationConfigForm = document.getElementById("animationConfig");
+populateForm(DEFAULT_ANIMATION_CONFIG);
+
+const animateBtn = document.getElementById("animateBtn");
+animateBtn.addEventListener("click", () => {
+    const config = readAnimationConfigInputs(animationConfigForm);
+    console.log("animation config:", config);
+    animationController.animationConfig = config;
+});
+
+const resetBtn = document.getElementById("resetBtn");
+resetBtn.addEventListener("click", () => {
+    populateForm(DEFAULT_ANIMATION_CONFIG);
+});
+
+const animationTypeSelect = document.getElementById("animationTypeSelect");
+handleAnimationTypeChanged(animationTypeSelect);
+animationTypeSelect.addEventListener("change", () => handleAnimationTypeChanged(animationTypeSelect));
+
+const musicTypeSelect = document.getElementById("musicTypeSelect");
+handleMusicTypeChanged(musicTypeSelect);
+musicTypeSelect.addEventListener("change", () => handleMusicTypeChanged(musicTypeSelect));
