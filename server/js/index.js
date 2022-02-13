@@ -331,7 +331,7 @@ const DEFAULT_ANIMATION_CONFIG = {
     speed: 1,
     style: "starWars",
     musicType: "url",
-    musicUrl: "assets/star_wars.mp3",
+    musicUrl: "assets/music/star_wars.mp3",
 };
 fixAnimationConfig(DEFAULT_ANIMATION_CONFIG);
 

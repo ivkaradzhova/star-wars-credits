@@ -1,7 +1,7 @@
 <?php
-require "../vendor/autoload.php";
-require "../bootstrap.php";
-require "../dbseed.php";
+require "vendor/autoload.php";
+require "bootstrap.php";
+require "dbseed.php";
 use Src\Controller\AnimationController;
 
 header("Access-Control-Allow-Origin: *");
@@ -14,14 +14,14 @@ $uri = explode( '/', $uri );
 
 // all of our endpoints start with /person
 // everything else results in a 404 Not Found
-if ($uri[1] !== 'animation') {
+if ($uri[2] !== 'animation') {
     header("HTTP/1.1 404 Not Found");
     exit();
 }
 
 // the user id is, of course, optional and must be a number:
 $animationId = null;
-if (isset($uri[2])) {
+if (isset($uri[3])) {
     $animationId = (int) $uri[2];
 }
 
