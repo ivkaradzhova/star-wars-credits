@@ -64,12 +64,13 @@ class AnimationController {
         return $response;
     }
 
-    private function createAnimation()
-    {
+    private function createAnimation() {
         $input = (array) json_decode(file_get_contents('php://input'), TRUE);
         if (!$this->validateAnimation($input)) {
             return $this->unprocessableEntityResponse();
         }
+        $input["textColor"] = hexdec($input["textColor"]);
+        $input["backgroundColor"] = hexdec($input["backgroundColor"]);
         $this->repository->insert($input);
         $response['status_code_header'] = 'HTTP/1.1 201 Created';
         $response['body'] = null;

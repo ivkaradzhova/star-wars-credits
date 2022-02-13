@@ -119,6 +119,10 @@ class AnimationController {
         this._loadAnimation();
     }
 
+    get animationConfig() {
+        return this._animationConfig;
+    }
+
     _loadAnimation() {
         let node = this._animationContainer;
         node = AnimationController._clearElement(node);
@@ -308,8 +312,8 @@ function handleMusicTypeChanged(musicTypeSelect) {
         .forEach((e) => setElementVisible(e, isFileVisible));
 }
 
-function setElementVisible(e, isVisible) {
-    e.style["display"] = isVisible ? "block" : "none";
+function setElementVisible(e, isVisible, display = "block") {
+    e.style["display"] = isVisible ? display : "none";
 }
 
 // const DEFAULT_ANIMATION_CONFIG = {
@@ -325,7 +329,7 @@ function setElementVisible(e, isVisible) {
 
 const DEFAULT_ANIMATION_CONFIG = {
     type: "text",
-    text: "It is a period of civil war. Rebel spaceships, striking from a hidden base, have won their first victory against the evil Galactic Empire. During the battle, Rebel spies managed to steal secret plans to the Empire’s ultimate weapon, the DEATH STAR, an armoured space station with enough power to destroy an entire planet. Pursued by the Empire’s sinister agents, Princess Leia races home aboard her starship, custodian of the stolen plans that can save her people and restore freedom to the galaxy…. ".repeat(100),
+    text: "It is a period of civil war. Rebel spaceships, striking from a hidden base, have won their first victory against the evil Galactic Empire. During the battle, Rebel spies managed to steal secret plans to the Empire’s ultimate weapon, the DEATH STAR, an armoured space station with enough power to destroy an entire planet. Pursued by the Empire’s sinister agents, Princess Leia races home aboard her starship, custodian of the stolen plans that can save her people and restore freedom to the galaxy…. ",
     textColor: "#ffeb00",
     backgroundColor: "#262626",
     speed: 1,
@@ -367,3 +371,36 @@ animationTypeSelect.addEventListener("change", () => handleAnimationTypeChanged(
 const musicTypeSelect = document.getElementById("musicTypeSelect");
 handleMusicTypeChanged(musicTypeSelect);
 musicTypeSelect.addEventListener("change", () => handleMusicTypeChanged(musicTypeSelect));
+
+const saveFormPopup = document.getElementById("saveFormPopup");
+saveFormPopup.addEventListener("click", () => {
+    setElementVisible(saveFormPopup, false);
+});
+const saveFormWrapper = document.getElementById("saveFormWrapper");
+saveFormWrapper.addEventListener("click", (e) => {
+    e.stopPropagation();
+})
+const cancelBtn = document.getElementById("cancelBtn");
+cancelBtn.addEventListener("click", () => {
+    setElementVisible(saveFormPopup, false);
+});
+const publishFormBtn = document.getElementById("publishFormBtn");
+publishFormBtn.addEventListener("click", () => {
+    setElementVisible(saveFormPopup, true, "flex");
+});
+const publishBtn = document.getElementById("publishBtn");
+const animationNameInput = document.getElementById("animationNameInput");
+publishBtn.addEventListener("click", async () => {
+    const config = animationController.animationConfig;
+    config.name = animationNameInput.value;
+    console.log("config:", config);
+    const response = await fetch("api/animation", {
+        method: "POST",
+        headers: {
+            "content-type": "application/json"
+        },
+        body: JSON.stringify(config),
+    });
+    setElementVisible(saveFormPopup, false);
+    return false;
+});
