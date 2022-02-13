@@ -1,4 +1,6 @@
-cd server
+cd server/api
+composer install 
+cd -
 
 echo 'Building image'
 docker build -t php-rewrite .
