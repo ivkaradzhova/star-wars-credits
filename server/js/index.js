@@ -198,7 +198,9 @@ class AnimationController {
         div.style["max-width"] = "1000px";
         div.style["color"] = config.textColor;
         div.style["font-size"] = "500%";
-        div.innerText = config.text;
+        const p = document.createElement("p");
+        p.innerText = config.text;
+        div.appendChild(p)
         node.appendChild(div);
         return div;
     }
@@ -257,9 +259,8 @@ class AnimationController {
      * @param {AnimationConfig} config
      */
     static _setSpeed(node, config) {
-        const speed = config.speed * 100;
+        const speed = config.speed * 50;
         const height = config.type === AnimationConfig.ANIMATION_TYPE_TEXT ? node.offsetHeight : config.height;
-        console.log(height, speed);
         const time = calculateAnimationTime(speed, height);
         node.style["animation"] = `scroll ${time}s linear forwards`;
         return node;
@@ -404,3 +405,15 @@ publishBtn.addEventListener("click", async () => {
     setElementVisible(saveFormPopup, false);
     return false;
 });
+
+if (window.location.hash) {
+    const animationId = window.location.hash.substring(1);
+    console.log(`loading animation for id: ${animationId}`);
+    fetch(`/api/animation/${animationId}`)
+        .then((response) => response.json())
+        .then((animation) => {
+            const config = animation[0];
+            console.log("received animation config:", config);
+            animationController.animationConfig = config;
+        });
+}

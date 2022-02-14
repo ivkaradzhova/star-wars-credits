@@ -191,11 +191,13 @@ input[type=range]:focus::-ms-fill-upper {
 
 .btn-config {
   border: 2px solid var(--btn-border-color);
-  border-radius: var(--default-border-radius);;
+  border-radius: var(--default-border-radius);
+  ;
   font-size: 14px;
   width: 40%;
   padding: 10px 20px;
   font-family: 'Roboto';
+  cursor: pointer;
 }
 
 .animate {
@@ -247,6 +249,7 @@ input[type=range]:focus::-ms-fill-upper {
   background-color: var(--accent-color);
   border: 0;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
 }
 
 .btn-media:hover {
@@ -317,16 +320,32 @@ input[type=range]:focus::-ms-fill-upper {
 
 .top-navigation {
   z-index: 10;
-  margin: 30px;
+  display: flex;
+  flex-direction: row;
+  height: 50px;
+  position: absolute;
+  justify-content: space-between;
+  width: 100%;
+  padding-top: 20px;
 }
 
 .btn-top {
   padding: 10px 20px;
-  color: white;
+  color: #e0e0e0;
   border: none;
   background: rgba(0, 0, 0, 0.1);
   display: flex;
-  border-radius: var(--default-border-radius);;
+  margin: 0 20px;
+  height: 50px;
+  border-radius: var(--default-border-radius);
+  ;
+  text-decoration: none;
+  font-family: 'Roboto';
+  font-size: 14px;
+  outline: 0;
+  cursor: auto;
+  cursor: pointer;
+  text-transform: uppercase;
 }
 
 .btn-top:hover {
@@ -343,8 +362,7 @@ input[type=range]:focus::-ms-fill-upper {
   margin-left: 1em;
 }
 
-.btn-top img {
-}
+.btn-top img {}
 
 .popup {
   position: absolute;
@@ -370,6 +388,98 @@ input[type=range]:focus::-ms-fill-upper {
   flex-direction: column;
 }
 
-.save-form > * {
+.save-form>* {
   margin: 5px;
+}
+
+a.nostyle:link {
+  text-decoration: inherit;
+  color: inherit;
+}
+
+a.nostyle:visited {
+  text-decoration: inherit;
+  color: inherit;
+}
+
+.top-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 5px 20px;
+}
+
+.top-bar nav {
+  align-self: center;
+}
+
+.top-bar {
+  background-color: var(--primary-color);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.6), 0 10px 10px rgba(0, 0, 0, 0.55);
+  z-index: 100;
+}
+
+.main-container {
+  background-color: var(--secondary-color);
+  height: 100vh;
+  overflow: auto;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  padding-top: 20px;
+}
+
+.animation-list-container {
+  max-width: 1000px;
+  align-self: flex-start;
+  display: grid;
+  grid-auto-rows: minmax(auto, 100px);
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1em;
+}
+
+.animation-list-item {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  background: var(--primary-color);
+  transition: all .2s ease-in-out;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.animation-list-item:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+
+.animation-list-item .color-bar {
+  background: linear-gradient(to right, var(--accent-color), #ff7707);
+  height: 7px;
+  width: 100%;
+}
+
+.animation-list-item .card-title {
+  margin: 20px 20px 20px 20px;
+}
+
+.animation-list-item .delete-btn {
+  background: none;
+  border: none;
+  opacity: 0.8;
+  padding: 0;
+  margin: 10px;
+  cursor: pointer;
+  align-self: center;
+}
+
+.animation-list-item .delete-btn:hover {
+  opacity: 1;
+}
+
+.animation-list-item .top-part {
+  display: flex;
+  justify-content: space-between;
 }

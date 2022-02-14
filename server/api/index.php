@@ -22,7 +22,7 @@ if ($uri[2] !== 'animation') {
 // the user id is, of course, optional and must be a number:
 $animationId = null;
 if (isset($uri[3])) {
-    $animationId = (int) $uri[2];
+    $animationId = (int) $uri[3];
 }
 
 $requestMethod = $_SERVER["REQUEST_METHOD"];
