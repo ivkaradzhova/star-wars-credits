@@ -294,9 +294,12 @@ function populateForm(config) {
     Object.keys(config).forEach((key) => {
         animationConfigForm[key].value = config[key];
     });
+    handleAnimationTypeChanged();
+    handleMusicTypeChanged();
 }
 
-function handleAnimationTypeChanged(animationTypeSelect) {
+function handleAnimationTypeChanged() {
+    const animationTypeSelect = document.getElementById("animationTypeSelect");
     const animationType = animationTypeSelect.value;
     const isWebPageVisible = animationType === "webPage";
     const isTextVisible = animationType === "text";
@@ -306,7 +309,8 @@ function handleAnimationTypeChanged(animationTypeSelect) {
         .forEach((e) => setElementVisible(e, isTextVisible, "flex"));
 }
 
-function handleMusicTypeChanged(musicTypeSelect) {
+function handleMusicTypeChanged() {
+    const musicTypeSelect = document.getElementById("musicTypeSelect");
     const musicType = musicTypeSelect.value;
     const isUrlVisible = musicType === "url";
     const isFileVisible = musicType === "file";
@@ -403,13 +407,11 @@ resetBtn.addEventListener("click", () => {
     populateForm(DEFAULT_ANIMATION_CONFIG);
 });
 
-const animationTypeSelect = document.getElementById("animationTypeSelect");
-handleAnimationTypeChanged(animationTypeSelect);
-animationTypeSelect.addEventListener("change", () => handleAnimationTypeChanged(animationTypeSelect));
+handleAnimationTypeChanged();
+animationTypeSelect.addEventListener("change", () => handleAnimationTypeChanged());
 
-const musicTypeSelect = document.getElementById("musicTypeSelect");
-handleMusicTypeChanged(musicTypeSelect);
-musicTypeSelect.addEventListener("change", () => handleMusicTypeChanged(musicTypeSelect));
+handleMusicTypeChanged();
+musicTypeSelect.addEventListener("change", () => handleMusicTypeChanged());
 
 const saveFormPopup = document.getElementById("saveFormPopup");
 saveFormPopup.addEventListener("click", () => {
