@@ -61,16 +61,17 @@ class AnimationRepository {
                 'source' => $input['source'] ?? null,
                 'height' => $input['height'] ?? null,
                 'text' => $input['text'] ?? null,
-                'text_color' => $input['text_color'] ?? null,
+                'text_color' => $input['textColor'] ?? null,
                 'style' => $input['style'],
                 'speed' => $input['speed'],
-                'background_color' => $input['background_color'],
-                'music_type' => $input['music_type'],
-                'music_url' => $input['music_url'] ?? null,
-                'music_path' => $input['music_path'] ?? null
+                'background_color' => $input['backgroundColor'],
+                'music_type' => $input['musicType'],
+                'music_url' => $input['musicUrl'] ?? null,
+                'music_path' => $input['musicPath'] ?? null
             ));
             return $statement->rowCount();
         } catch (\PDOException $e) {
+            error_log($e->getMessage());
             exit($e->getMessage());
         }
     }

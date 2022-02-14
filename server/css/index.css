@@ -8,6 +8,7 @@
   --contrast-primary-color: #c79100;
   --form-contrast-color: #bbbbbb;
   --button-height: 15px;
+  --default-border-radius: 6px;
 }
 
 body {
@@ -87,9 +88,10 @@ input[type=range] {
   height: 17px;
   -webkit-appearance: none;
   margin: 5px;
-  padding: 5px
+  padding: 5px;
   width: 100%;
 }
+
 input[type=range]:focus {
   outline: none;
 }
@@ -189,7 +191,7 @@ input[type=range]:focus::-ms-fill-upper {
 
 .btn-config {
   border: 2px solid var(--btn-border-color);
-  border-radius: 6px;
+  border-radius: var(--default-border-radius);;
   font-size: 14px;
   width: 40%;
   padding: 10px 20px;
@@ -202,6 +204,7 @@ input[type=range]:focus::-ms-fill-upper {
 }
 
 .animate:hover {
+  transition: background-color 0.3s;
   background-color: var(--contrast-primary-color);
 }
 
@@ -211,6 +214,7 @@ input[type=range]:focus::-ms-fill-upper {
 }
 
 .reset:hover {
+  transition: background-color 0.3s;
   background-color: var(--btn-border-color);
 }
 
@@ -246,6 +250,7 @@ input[type=range]:focus::-ms-fill-upper {
 }
 
 .btn-media:hover {
+  transition: background-color 0.3s;
   background-color: var(--contrast-primary-color);
 }
 
@@ -292,7 +297,79 @@ input[type=range]:focus::-ms-fill-upper {
 .logo {
   color: var(--accent-color);
   margin: 0;
-  padding: 10px;
-  border: 1px solid var(--accent-color);
   border-radius: 10px;
+  display: flex;
+
+}
+
+.logo h1 {
+  display: inline;
+  align-self: center;
+}
+
+.logo img {
+  display: inline;
+  align-self: center;
+  width: 4em;
+  height: 4em;
+  margin-left: -7px;
+}
+
+.top-navigation {
+  z-index: 10;
+  margin: 30px;
+}
+
+.btn-top {
+  padding: 10px 20px;
+  color: white;
+  border: none;
+  background: rgba(0, 0, 0, 0.1);
+  display: flex;
+  border-radius: var(--default-border-radius);;
+}
+
+.btn-top:hover {
+  transition: background-color 0.3s;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.btn-top img {
+  align-self: center;
+}
+
+.btn-top span {
+  align-self: center;
+  margin-left: 1em;
+}
+
+.btn-top img {
+}
+
+.popup {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  z-index: 20;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  display: none;
+}
+
+.save-form-wrapper {
+  align-self: center;
+  background-color: var(--primary-color);
+  border-radius: var(--default-border-radius);
+  padding: 10px 20px;
+  box-shadow: 0 0px 38px rgba(0, 0, 0, 0.8), 0 50px 50px rgba(0, 0, 0, 0.8);
+}
+
+.save-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.save-form > * {
+  margin: 5px;
 }
