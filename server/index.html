@@ -16,42 +16,51 @@
                 <h1>Credits Player</h1>
             </div>
 
-            <form id="animationConfig" class="animation-config">
+            <div class="animation-config">
+                <form class="import-config">
+                    <label class="file-config-btn btn-config">
+                        <input class="file-config" type="file" id="importConfigFilePicker"
+                            name="importConfigFilePicker" />
+                        Import
+                    </label>
+                    <button class="file-config-btn btn-config export-config" id="exportBtn">Export</button>
+                </form>
+                <form id="animationConfig" class="animation-config">
+                    <select name="type" id="animationTypeSelect" class="form-field">
+                        <option value="webPage">Web Page</option>
+                        <option value="text">Text</option>
+                    </select>
+                    <input type="url" placeholder="Animation source" name="source" class="type-web-page form-field">
+                    <input type="number" placeholder="Web Page Height" name="height" class="type-web-page form-field">
+                    <input type="text" placeholder="Animation text" name="text" class="type-text form-field">
 
-                <select name="type" id="animationTypeSelect" class="form-field">
-                    <option value="webPage">Web Page</option>
-                    <option value="text">Text</option>
-                </select>
-                <input type="url" placeholder="Animation source" name="source" class="type-web-page form-field">
-                <input type="number" placeholder="Web Page Height" name="height" class="type-web-page form-field">
-                <input type="text" placeholder="Animation text" name="text" class="type-text form-field">
+                    <div class="type-text color-container">
+                        <label class="form-lable" for="textColor">Text color</label>
+                        <input type="color" class="form-field" name="textColor" value="#ffeb00">
+                    </div>
 
-                <div class="type-text color-container">
-                    <label class="form-lable" for="textColor">Text color</label>
-                    <input type="color" class="form-field" name="textColor" value="#ffeb00">
-                </div>
+                    <select name="style" class="form-field">
+                        <option value="starWars">Star wars</option>
+                        <option value="finalCredits">Final credits</option>
+                    </select>
 
-                <select name="style" class="form-field">
-                    <option value="starWars">Star wars</option>
-                    <option value="finalCredits">Final credits</option>
-                </select>
+                    <label class="form-lable" for="vol">Speed</label>
+                    <input type="range" class="slider form-field" name="speed" min="0" max="10 ">
 
-                <label class="form-lable" for="vol">Speed</label>
-                <input type="range" class="slider form-field" name="speed" min="0" max="10 ">
+                    <div class="color-container">
+                        <label class="form-lable" for="backgroundColor">Background color</label>
+                        <input type="color" class="form-field" name="backgroundColor" value="#ff0000">
+                    </div>
 
-                <div class="color-container">
-                    <label class="form-lable" for="backgroundColor">Background color</label>
-                    <input type="color" class="form-field" name="backgroundColor" value="#ff0000">
-                </div>
+                    <select name="musicType" id="musicTypeSelect" class="form-field">
+                        <option value="url">URL</option>
+                        <option value="file">File</option>
+                    </select>
 
-                <select name="musicType" id="musicTypeSelect" class="form-field">
-                    <option value="url">URL</option>
-                    <option value="file">File</option>
-                </select>
-
-                <input type="url" placeholder="Music URL" name="musicUrl" class="music-type-url form-field">
-                <input type="file" placeholder="Music file" name="musicPath" class="music-type-file form-field">
-            </form>
+                    <input type="url" placeholder="Music URL" name="musicUrl" class="music-type-url form-field">
+                    <input type="file" placeholder="Music file" name="musicPath" class="music-type-file form-field">
+                </form>
+            </div>
 
 
             <fieldset class="btn-group">
@@ -70,8 +79,9 @@
             </div>
 
             <div class="top-navigation">
-                <a href="explore.html" class="nostyle"><button class="btn-top" id="exploreBtn"><img src="assets/images/list_black_24dp.svg"
-                        alt="Explore"><span>Explore Animations</span></button></a>
+                <a href="explore.html" class="nostyle"><button class="btn-top" id="exploreBtn"><img
+                            src="assets/images/list_black_24dp.svg" alt="Explore"><span>Explore
+                            Animations</span></button></a>
                 <button class="btn-top" id="publishFormBtn"><img src="assets/images/publish_black_24dp.svg"
                         alt="Save"><span>Publish</span></button>
             </div>

@@ -469,3 +469,40 @@ publishBtn.addEventListener("click", async () => {
     setElementVisible(saveFormPopup, false);
     return false;
 });
+
+const importConfigFilePicker = document.getElementById("importConfigFilePicker");
+importConfigFilePicker.addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.addEventListener("load", (e) => {
+        const config = JSON.parse(e.target.result);
+        console.log(config);
+        animationController.animationConfig = config;
+        populateForm(config);
+    });
+    reader.readAsBinaryString(file);
+});
+
+function toBlob(obj) {
+    const str = JSON.stringify(obj);
+    const bytes = new TextEncoder().encode(str);
+    return new Blob([bytes], {
+        type: "application/json;charset=utf-8"
+    });
+}
+
+const exportBtn = document.getElementById("exportBtn");
+exportBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    const config = animationController.animationConfig;
+    const blob = toBlob(config);
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.style.display = "none";
+    a.href = url;
+    a.download = config.name;
+    document.body.appendChild(a);
+    a.click();
+    URL.revokeObjectURL(url);
+});

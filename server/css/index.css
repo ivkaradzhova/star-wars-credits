@@ -273,6 +273,10 @@ input[type=range]:focus::-ms-fill-upper {
 
 
 @keyframes scroll {
+  from {
+    transform: translateY(100vh);
+  }
+
   to {
     transform: translateY(calc(-100% - 1000px));
   }
@@ -365,8 +369,6 @@ input[type=range]:focus::-ms-fill-upper {
   align-self: center;
   margin-left: 1em;
 }
-
-.btn-top img {}
 
 .popup {
   position: absolute;
@@ -501,4 +503,36 @@ a.nostyle:visited {
 .empty-view {
   opacity: 0.5;
   display: none;
+}
+
+input[type="file"].file-config {
+  display: none;
+}
+
+.file-config-btn {
+  cursor: pointer;
+  text-align: center;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 5px;
+  background-color: var(--primary-color);
+  color: var(--accent-color);
+  flex: 1;
+}
+
+.file-config-btn:hover {
+  transition: background-color 0.3s;
+  background-color: var(--btn-border-color);
+}
+
+.import-config {
+  margin-bottom: 30px;
+  display: flex;
+  text-align: center;
+  width: 60%;
+}
+
+.export-config {
+  flex: 1;
 }
