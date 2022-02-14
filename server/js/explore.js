@@ -43,11 +43,21 @@ function addToAnimationList(animation) {
     }
 }
 
+function showEmptyView() {
+    const emptyView = document.getElementById("emptyView");
+    emptyView.style["display"] = "block";
+}
+
 function loadAnimationList() {
     animationList.innerHTML = "";
     fetch("/api/animation")
         .then((response) => response.json())
         .then((animations) => {
+            if (animations.length === 0) {
+                console.log("no animations found");
+                showEmptyView();
+                return;
+            }
             animations.forEach(addToAnimationList);
         });
 }

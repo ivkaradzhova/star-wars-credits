@@ -497,3 +497,8 @@ a.nostyle:visited {
   margin-bottom: 0;
   font-size: 0.8em;
 }
+
+.empty-view {
+  opacity: 0.5;
+  display: none;
+}
