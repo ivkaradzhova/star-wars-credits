@@ -15,35 +15,39 @@
 
             <form id="animationConfig" class="animation-config">
 
-                <select name="type" id="animationTypeSelect">
+                <select name="type" id="animationTypeSelect" class="form-field">
                     <option value="webPage">Web Page</option>
                     <option value="text">Text</option>
                 </select>
-                <input type="url" placeholder="Animation source" name="source" class="type-web-page">
-                <input type="number" placeholder="Web Page Height" name="height" class="type-web-page">
-                <input type="text" placeholder="Animation text" name="text" class="type-text">
+                <input type="url" placeholder="Animation source" name="source" class="type-web-page form-field">
+                <input type="number" placeholder="Web Page Height" name="height" class="type-web-page form-field">
+                <input type="text" placeholder="Animation text" name="text" class="type-text form-field">
+
                 <div class="type-text">
-                    <label for="textColor">Text color</label>
-                    <input type="color" name="textColor" value="#ffeb00">
+                    <label class="form-lable" for="textColor">Text color</label>
+                    <input type="color" class="form-field" name="textColor" value="#ffeb00">
                 </div>
-                <select name="style">
+
+                <select name="style" class="form-field">
                     <option value="starWars">Star wars</option>
                     <option value="finalCredits">Final credits</option>
                 </select>
-                <label for="vol">Speed</label>
-                <input type="range" name="speed" min="0" max="10">
+
+                <label class="form-lable" for="vol">Speed</label>
+                <input type="range" class="slider form-field" name="speed" min="0" max="10 ">
 
                 <div>
-                    <label for="backgroundColor">Background color</label>
-                    <input type="color" name="backgroundColor" value="#ff0000">
+                    <label class="form-lable" for="backgroundColor">Background color</label>
+                    <input type="color" class="form-field" name="backgroundColor" value="#ff0000">
                 </div>
 
-                <select name="musicType" id="musicTypeSelect">
+                <select name="musicType" id="musicTypeSelect" class="form-field">
                     <option value="url">URL</option>
                     <option value="file">File</option>
                 </select>
-                <input type="url" placeholder="Music URL" name="musicUrl" class="music-type-url">
-                <input type="file" placeholder="Music file" name="musicPath" class="music-type-file">
+
+                <input type="url" placeholder="Music URL" name="musicUrl" class="music-type-url form-field">
+                <input type="file" placeholder="Music file" name="musicPath" class="music-type-file form-field">
             </form>
 
 
@@ -65,11 +69,14 @@
             <div class="media-controls">
                 <div class="btn-media btn-play-pause" id="playBtn">
                     <button class="btn-media" id="playBtnPause"><img src="assets/images/pause_black_24dp.svg"></button>
-                    <button class="btn-media" id="playBtnPlay"><img src="assets/images/play_arrow_black_24dp.svg"></button>
+                    <button class="btn-media" id="playBtnPlay"><img
+                            src="assets/images/play_arrow_black_24dp.svg"></button>
                 </div>
                 <div class="btn-media btn-mute-unmute" id="muteBtn">
-                    <button class="btn-media" id="muteBtnMute"><img src="assets/images/volume_up_black_24dp.svg"></button>
-                    <button class="btn-media" id="muteBtnUnmute"><img src="assets/images/volume_off_black_24dp.svg"></button>
+                    <button class="btn-media" id="muteBtnMute"><img
+                            src="assets/images/volume_up_black_24dp.svg"></button>
+                    <button class="btn-media" id="muteBtnUnmute"><img
+                            src="assets/images/volume_off_black_24dp.svg"></button>
                 </div>
             </div>
         </div>
