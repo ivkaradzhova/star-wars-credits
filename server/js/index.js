@@ -1,5 +1,3 @@
-"use strict";
-
 class AnimationConfig {
     static ANIMATION_TYPE_TEXT = "text";
     static ANIMATION_TYPE_WEBPAGE = "webPage";
@@ -98,8 +96,8 @@ class AnimationController {
         this._animationContainer = animationContainer;
         this._animationConfig = animationConfig;
         this._mediaControls = mediaControls;
-        this._loadAnimation();
         this._configMediaControls(mediaControls);
+        this._loadAnimation();
     }
 
     togglePlayback() {
@@ -115,7 +113,9 @@ class AnimationController {
      */
     set animationConfig(config) {
         this._animationConfig = config;
-        this._player.stop();
+        if (this._player) {
+            this._player.stop();
+        }
         this._loadAnimation();
     }
 
@@ -124,6 +124,9 @@ class AnimationController {
     }
 
     _loadAnimation() {
+        if (!this._animationConfig) {
+            return;
+        }
         let node = this._animationContainer;
         node = AnimationController._clearElement(node);
         node = AnimationController._setBackground(node, this._animationConfig);
@@ -345,17 +348,52 @@ const playBtn = document.getElementById("playBtn");
 const muteBtn = document.getElementById("muteBtn");
 const animationController = new AnimationController(
     animationContainer,
-    DEFAULT_ANIMATION_CONFIG, {
+    null, {
         playBtn: playBtn,
         muteBtn: muteBtn
     });
 
 const animationConfigForm = document.getElementById("animationConfig");
-populateForm(DEFAULT_ANIMATION_CONFIG);
+
+if (window.location.hash) {
+    const animationId = window.location.hash.substring(1);
+    console.log(`loading animation for id: ${animationId}`);
+    fetch(`/api/animation/${animationId}`)
+        .then((response) => response.json())
+        .then((animation) => {
+            const configFromServer = animation[0];
+            console.log("received animation config:", configFromServer);
+            const animationConfig = {
+                id: configFromServer.id,
+                name: configFromServer.name,
+                type: configFromServer.type,
+                source: configFromServer.source,
+                height: configFromServer.height,
+                text: configFromServer.text,
+                textColor: configFromServer.text_color,
+                style: configFromServer.style,
+                speed: configFromServer.speed,
+                backgroundColor: configFromServer.background_color,
+                musicType: configFromServer.music_type,
+                musicUrl: configFromServer.music_url,
+                musicPath: configFromServer.music_path
+            };
+            console.log(animationConfig);
+            animationController.animationConfig = animationConfig;
+            populateForm(animationConfig);
+        });
+} else {
+    animationController.animationConfig = DEFAULT_ANIMATION_CONFIG;
+    populateForm(DEFAULT_ANIMATION_CONFIG);
+}
 
 const animateBtn = document.getElementById("animateBtn");
 animateBtn.addEventListener("click", () => {
     const config = readAnimationConfigInputs(animationConfigForm);
+    if (animationController.animationConfig && animationController.animationConfig.id) {
+        config.id = animationController.animationConfig.id;
+        config.name = animationController.animationConfig.name;
+    }
     console.log("animation config:", config);
     animationController.animationConfig = config;
 });
@@ -386,35 +424,46 @@ cancelBtn.addEventListener("click", () => {
     setElementVisible(saveFormPopup, false);
 });
 const publishFormBtn = document.getElementById("publishFormBtn");
+const animationNameInput = document.getElementById("animationNameInput");
 publishFormBtn.addEventListener("click", () => {
     setElementVisible(saveFormPopup, true, "flex");
+    const config = animationController.animationConfig;
+    console.log(config);
+    if (config.name) {
+        animationNameInput.value = config.name;
+    }
 });
 const publishBtn = document.getElementById("publishBtn");
-const animationNameInput = document.getElementById("animationNameInput");
 publishBtn.addEventListener("click", async () => {
     const config = animationController.animationConfig;
     config.name = animationNameInput.value;
-    console.log("config:", config);
-    const response = await fetch("api/animation", {
-        method: "POST",
-        headers: {
-            "content-type": "application/json"
-        },
-        body: JSON.stringify(config),
+    const requestConfig = {};
+    Object.keys(config).forEach((key) => {
+        if (config[key]) {
+            requestConfig[key] = config[key];
+        }
     });
+    console.log("config:", requestConfig);
+    if (config.id) {
+        // Update animation
+        await fetch(`api/animation/${config.id}`, {
+            method: "PUT",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(requestConfig),
+        });
+    } else {
+        // Create new animation
+        await fetch("api/animation", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(requestConfig),
+        });
+    }
+
     setElementVisible(saveFormPopup, false);
     return false;
 });
-
-if (window.location.hash) {
-    const animationId = window.location.hash.substring(1);
-    console.log(`loading animation for id: ${animationId}`);
-    fetch(`/api/animation/${animationId}`)
-        .then((response) => response.json())
-        .then((animation) => {
-            const config = animation[0];
-            console.log("received animation config:", config);
-            animationController.animationConfig = config;
-            // populateForm(config);
-        });
-}

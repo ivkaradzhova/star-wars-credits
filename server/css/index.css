@@ -331,8 +331,8 @@ input[type=range]:focus::-ms-fill-upper {
 
 .btn-top {
   padding: 10px 20px;
-  color: #e0e0e0;
   border: none;
+  color: white;
   background: rgba(0, 0, 0, 0.1);
   display: flex;
   margin: 0 20px;
@@ -462,7 +462,8 @@ a.nostyle:visited {
 }
 
 .animation-list-item .card-title {
-  margin: 20px 20px 20px 20px;
+  margin: 10px 20px 10px 20px;
+  align-self: center;
 }
 
 .animation-list-item .delete-btn {
@@ -470,7 +471,7 @@ a.nostyle:visited {
   border: none;
   opacity: 0.8;
   padding: 0;
-  margin: 10px;
+  margin: 0px 10px;
   cursor: pointer;
   align-self: center;
 }
@@ -482,4 +483,13 @@ a.nostyle:visited {
 .animation-list-item .top-part {
   display: flex;
   justify-content: space-between;
+}
+
+.animation-list-item .animation-id {
+  margin: 0;
+  padding: 0;
+  opacity: 0.3;
+  margin: 10px;
+  margin-bottom: 0;
+  font-size: 0.8em;
 }

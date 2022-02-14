@@ -69,8 +69,6 @@ class AnimationController {
         if (!$this->validateAnimation($input)) {
             return $this->unprocessableEntityResponse();
         }
-        $input["textColor"] = hexdec($input["textColor"]);
-        $input["backgroundColor"] = hexdec($input["backgroundColor"]);
         $this->repository->insert($input);
         $response['status_code_header'] = 'HTTP/1.1 201 Created';
         $response['body'] = null;

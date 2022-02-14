@@ -20,6 +20,7 @@ function createListItem(title, id) {
     return createElementFromHTMLString(`
         <a class="nostyle" href="/#${id}">
             <div class="animation-list-item">
+                <span class="animation-id">${id}</span>
                 <div class="top-part">
                     <h3 class="card-title">${title}</h3>
                     <button class="delete-btn" onclick="deleteAnimation(event, ${id})"><img src="assets/images/delete_black_24dp.svg" alt="DELETE"></button>
@@ -36,6 +37,10 @@ function addToAnimationList(animation) {
     console.log("fetched animation:", animation);
     const listItem = createListItem(animation.name, animation.id);
     animationList.appendChild(listItem);
+    if (animation.background_color !== "#262626") {
+        const colorBar = listItem.querySelector(".color-bar");
+        colorBar.style["background"] = animation.background_color;
+    }
 }
 
 function loadAnimationList() {
