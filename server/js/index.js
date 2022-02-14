@@ -300,10 +300,10 @@ function handleAnimationTypeChanged(animationTypeSelect) {
     const animationType = animationTypeSelect.value;
     const isWebPageVisible = animationType === "webPage";
     const isTextVisible = animationType === "text";
-    Array.from(document.getElementsByClassName("type-web-page"))
+    Array.from(document.getElementsByClassName("type-web-page", "flex"))
         .forEach((e) => setElementVisible(e, isWebPageVisible));
     Array.from(document.getElementsByClassName("type-text"))
-        .forEach((e) => setElementVisible(e, isTextVisible));
+        .forEach((e) => setElementVisible(e, isTextVisible, "flex"));
 }
 
 function handleMusicTypeChanged(musicTypeSelect) {

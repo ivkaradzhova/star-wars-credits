@@ -6,6 +6,7 @@
   --accent-color: #ffc107;
   --btn-border-color: #383737;
   --contrast-primary-color: #c79100;
+  --accent-color-dark: #6e5202;
   --form-contrast-color: #bbbbbb;
   --button-height: 15px;
   --default-border-radius: 6px;
@@ -41,7 +42,7 @@ body {
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items:flex-start;
+  align-items: flex-start;
   margin: 0;
 }
 
@@ -51,18 +52,16 @@ body {
 
 .form-field {
   width: 100%;
-  height: 30px;
-  border: 1px solid var(--form-contrast-color);
   border-radius: 6px;
-  background-color: var(--primary-color);
+  border: none;
+  background-color: var(--secondary-color);
   font-family: Roboto;
   color: var(--form-contrast-color);
   margin: 5px;
-  padding: 5px;
+  padding: 10px 5px;
 }
 
-
-.form-field:focus{
+.form-field:focus {
   outline: none;
   border-color: var(--accent-color);
 }
@@ -72,16 +71,28 @@ body {
   border-color: var(--accent-color);
 }
 
-.slider {
+.form-field .slider {
   border: 0;
+  padding: 0;
 }
+
 input[type="color"] {
-	-webkit-appearance: none;
-	border: none;
-	width: 35px;
-	height: 40px;
-  margin: 5px 5px 5px 1px;
-  padding: 5px 5px 5px 1px;
+  -webkit-appearance: none;
+  border: none;
+  width: 20px;
+  height: 23px;
+  background: none;
+  border-radius: var(--default-border-radius);
+  margin: 5px 5px 5px 5px;
+  padding: 0;
+}
+
+.color-container {
+  display: flex;
+}
+
+.color-container>* {
+  align-self: center;
 }
 
 input[type=range] {
@@ -90,88 +101,81 @@ input[type=range] {
   margin: 5px;
   padding: 5px;
   width: 100%;
+  background: none;
 }
 
 input[type=range]:focus {
   outline: none;
 }
+
 input[type=range]::-webkit-slider-runnable-track {
   width: 100%;
-  height: 5px;
   cursor: pointer;
-  animate: 0.2s;
-  box-shadow: 0px 0px 0px #000000;
-  background: var(--accent-color);
+  background: var(--secondary-color);
   border-radius: 5px;
-  border: 0px solid #000000;
 }
+
 input[type=range]::-webkit-slider-thumb {
-  box-shadow: 0px 0px 0px #000000;
-  border: 1px solid #000000;
   height: 15px;
   width: 15px;
   border-radius: 10px;
-  background: var(--form-contrast-color);
+  background: var(--accent-color);
   cursor: pointer;
   -webkit-appearance: none;
-  margin-top: -3px;
 }
 
 input[type=range]::-moz-range-track {
   width: 100%;
   height: 5px;
   cursor: pointer;
-  animate: 0.2s;
   box-shadow: 0px 0px 0px #000000;
-  background: var(--accent-color);
+  background: var(--secondary-color);
   border-radius: 5px;
-  border: 0px solid #000000;
 }
+
 input[type=range]::-moz-range-thumb {
-  box-shadow: 0px 0px 0px #000000;
   border: 1px solid #000000;
   height: 15px;
   width: 15px;
   border-radius: 10px;
-  background: var(--form-contrast-color);
+  background: var(--accent-color);
   cursor: pointer;
 }
+
 input[type=range]::-ms-track {
   width: 100%;
   height: 5px;
   cursor: pointer;
-  animate: 0.2s;
   background: transparent;
   border-color: transparent;
   color: transparent;
 }
+
 input[type=range]::-ms-fill-lower {
   background: var(--accent-color);
-  border: 0px solid #000000;
   border-radius: 10px;
-  box-shadow: 0px 0px 0px #000000;
 }
+
 input[type=range]::-ms-fill-upper {
   background: var(--accent-color);
-  border: 0px solid #000000;
   border-radius: 10px;
-  box-shadow: 0px 0px 0px #000000;
 }
+
 input[type=range]::-ms-thumb {
   margin-top: 1px;
-  box-shadow: 0px 0px 0px #000000;
-  border: 1px solid #000000;
   height: 15px;
   width: 15px;
   border-radius: 10px;
-  background: var(--form-contrast-color);
+  background: var(--accent-color);
   cursor: pointer;
 }
+
 input[type=range]:focus::-ms-fill-lower {
-  background: var(--accent-color);
+  background: var(--secondary-color);
 }
+
 input[type=range]:focus::-ms-fill-upper {
-  background: var(---contrast-primary-color);
+  background: var(--secondary-color);
 }
 
 .form-lable {
