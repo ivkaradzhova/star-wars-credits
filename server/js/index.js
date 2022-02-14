@@ -415,5 +415,6 @@ if (window.location.hash) {
             const config = animation[0];
             console.log("received animation config:", config);
             animationController.animationConfig = config;
+            // populateForm(config);
         });
 }

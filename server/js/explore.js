@@ -4,13 +4,25 @@ function createElementFromHTMLString(str) {
     return div.firstChild;
 }
 
+function deleteAnimation(event, id) {
+    event.preventDefault();
+    fetch(`/api/animation/${id}`, {
+            method: "DELETE"
+        })
+        .then(() => {
+            console.log("deleted successfully");
+            loadAnimationList()
+        });
+    return false;
+}
+
 function createListItem(title, id) {
     return createElementFromHTMLString(`
         <a class="nostyle" href="/#${id}">
             <div class="animation-list-item">
                 <div class="top-part">
                     <h3 class="card-title">${title}</h3>
-                    <button class="delete-btn"><img src="assets/images/delete_black_24dp.svg" alt="DELETE"></button>
+                    <button class="delete-btn" onclick="deleteAnimation(event, ${id})"><img src="assets/images/delete_black_24dp.svg" alt="DELETE"></button>
                 </div>
                 <div class="color-bar"></div>
             </div>
@@ -26,8 +38,13 @@ function addToAnimationList(animation) {
     animationList.appendChild(listItem);
 }
 
-fetch("/api/animation")
-    .then((response) => response.json())
-    .then((animations) => {
-        animations.forEach(addToAnimationList);
-    });
+function loadAnimationList() {
+    animationList.innerHTML = "";
+    fetch("/api/animation")
+        .then((response) => response.json())
+        .then((animations) => {
+            animations.forEach(addToAnimationList);
+        });
+}
+
+loadAnimationList();
