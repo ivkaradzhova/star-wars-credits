@@ -48,9 +48,9 @@ class AnimationRepository {
     {
         $statement = "
             INSERT INTO animation
-                (name, type, source, height, text, text_color, style, speed, background_color, music_type, music_url, music_path)
+                (name, type, source, height, header, text, footer, text_color, style, speed, background_color, music_type, music_url, music_path)
             VALUES
-                (:name, :type, :source, :height, :text, :text_color, :style, :speed, :background_color, :music_type, :music_url, :music_path);
+                (:name, :type, :source, :height, :header, :text, :footer, :text_color, :style, :speed, :background_color, :music_type, :music_url, :music_path);
         ";
 
         try {
@@ -60,7 +60,9 @@ class AnimationRepository {
                 'type'  => $input['type'],
                 'source' => $input['source'] ?? null,
                 'height' => $input['height'] ?? null,
+                'header' => $input['header'] ?? null,
                 'text' => $input['text'] ?? null,
+                'footer' => $input['footer'] ?? null,
                 'text_color' => $input['textColor'] ?? null,
                 'style' => $input['style'],
                 'speed' => $input['speed'],
@@ -85,7 +87,9 @@ class AnimationRepository {
                 type = :type,
                 source = :source,
                 height = :height,
+                header = :header,
                 text = :text,
+                footer = :footer,
                 text_color = :text_color,
                 style = :style,
                 speed = :speed,
@@ -103,7 +107,9 @@ class AnimationRepository {
                 'type'  => $input['type'],
                 'source' => $input['source'] ?? null,
                 'height' => $input['height'] ?? null,
+                'header' => $input['header'] ?? null,
                 'text' => $input['text'] ?? null,
+                'footer' => $input['footer'] ?? null,
                 'text_color' => $input['textColor'] ?? null,
                 'style' => $input['style'],
                 'speed' => $input['speed'],

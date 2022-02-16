@@ -59,6 +59,8 @@ body {
   color: var(--form-contrast-color);
   margin: 5px;
   padding: 10px 5px;
+  resize: vertical;
+  max-height: 300px;
 }
 
 .form-field:focus {

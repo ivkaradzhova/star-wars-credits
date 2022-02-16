@@ -5,7 +5,9 @@ class AnimationConfig {
     type;
     source;
     height;
+    header;
     text;
+    footer;
     textColor;
     style;
     speed;
@@ -201,9 +203,19 @@ class AnimationController {
         div.style["max-width"] = "1000px";
         div.style["color"] = config.textColor;
         div.style["font-size"] = "500%";
+        div.style["display"] = "flex";
+        div.style["flex-direction"] = "column";
+        const h1 = document.createElement("h1");
+        h1.style["align-self"] = "center";
+        h1.innerText = config.header;
+        div.appendChild(h1);
         const p = document.createElement("p");
         p.innerText = config.text;
-        div.appendChild(p)
+        div.appendChild(p);
+        const footer = document.createElement("h4");
+        footer.style["align-self"] = "center";
+        footer.innerText = config.footer;
+        div.appendChild(footer);
         node.appendChild(div);
         return div;
     }
@@ -337,7 +349,9 @@ function setElementVisible(e, isVisible, display = "block") {
 
 const DEFAULT_ANIMATION_CONFIG = {
     type: "text",
+    header: "Star Wars",
     text: "It is a period of civil war. Rebel spaceships, striking from a hidden base, have won their first victory against the evil Galactic Empire. During the battle, Rebel spies managed to steal secret plans to the Empire’s ultimate weapon, the DEATH STAR, an armoured space station with enough power to destroy an entire planet. Pursued by the Empire’s sinister agents, Princess Leia races home aboard her starship, custodian of the stolen plans that can save her people and restore freedom to the galaxy…. ",
+    footer: "This is the footer",
     textColor: "#ffeb00",
     backgroundColor: "#262626",
     speed: 1,

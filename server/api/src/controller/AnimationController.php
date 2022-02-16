@@ -103,14 +103,7 @@ class AnimationController {
         return $response;
     }
 
-    private function validateAnimation($input)
-    {
-        // if (!isset($input['name'])) {
-        //     return false;
-        // }
-        // if (!isset($input['lastname'])) {
-        //     return false;
-        // }
+    private function validateAnimation($input) {
         return true;
     }
 
