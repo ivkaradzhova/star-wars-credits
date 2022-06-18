@@ -1,7 +1,7 @@
 <?php
 require "vendor/autoload.php";
 require "bootstrap.php";
-require "dbseed.php";
+
 use Src\Controller\AnimationController;
 
 header("Access-Control-Allow-Origin: *");

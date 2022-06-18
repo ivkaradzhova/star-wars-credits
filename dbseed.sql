@@ -1,0 +1,22 @@
+create database if not exists ending_credits;
+use ending_credits;
+
+create table animation (
+                           id int not null auto_increment,
+                           name varchar(100) not null,
+                           type varchar(100) not null,
+                           source varchar(100),
+                           height int,
+                           header longtext,
+                           text longtext,
+                           footer longtext,
+                           text_color varchar(100),
+                           style varchar(100) not null,
+                           speed int not null,
+                           background_color varchar(100) not null,
+                           music_type varchar(100) not null,
+                           music_url varchar(100),
+                           music_path varchar(100),
+                           primary key (id)
+);
+
