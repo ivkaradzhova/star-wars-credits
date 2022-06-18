@@ -1,7 +1,5 @@
-create database if not exists ending_credits;
-use ending_credits;
 
-create table animation (
+create table if not exists animation (
                            id int not null auto_increment,
                            name varchar(100) not null,
                            type varchar(100) not null,
