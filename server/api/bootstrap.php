@@ -1,8 +1,7 @@
 <?php
 require 'vendor/autoload.php';
+require_once 'DatabaseConnector.php';
 use Dotenv\Dotenv;
-
-use Src\DatabaseConnector;
 
 $dotenv = DotEnv::createImmutable(__DIR__);
 $dotenv->load();

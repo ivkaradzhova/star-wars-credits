@@ -1,7 +1,5 @@
 <?php
 
-namespace Src;
-
 class DatabaseConnector {
     private $dbConnection = null;
 

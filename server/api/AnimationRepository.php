@@ -1,5 +1,4 @@
 <?php
-namespace Src\Repositories;
 
 class AnimationRepository {
 
