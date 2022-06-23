@@ -1,7 +1,9 @@
 <?php
 namespace Src\Controller;
 
-use Src\Repositories\AnimationRepository;
+require 'src/repositories/AnimationRepository.php';
+
+use Src\Repositories\AnimationRepository as AnimationRepository;
 
 class AnimationController {
     private $db;

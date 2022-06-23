@@ -2,7 +2,9 @@
 require "vendor/autoload.php";
 require "bootstrap.php";
 require "dbseed.php";
-use Src\Controller\AnimationController;
+require "src/controller/AnimationController.php";
+
+use Src\Controller\AnimationController as AnimationController;
 
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
